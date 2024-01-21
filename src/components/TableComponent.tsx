@@ -1,5 +1,5 @@
 import { Config } from "datatables.net-dt";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import "jquery/dist/jquery.min.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
@@ -7,8 +7,7 @@ import $ from "jquery";
 import { Person } from "../features/personSlice";
 
 export function TableComponent({ ...props }: Config) {
-	// const tableRef = useRef<HTMLTableElement>(null);
-
+	const [tabData, setTabData] = useState<any>([]);
 	useEffect(() => {
 		$(document).ready(function () {
 			$("#table_id").DataTable({
@@ -17,9 +16,11 @@ export function TableComponent({ ...props }: Config) {
 				paging: false,
 			});
 		});
-	}, []);
+		if (props.data) setTabData(props.data);
+		else setTabData([]);
+	}, [props.data]);
 
-	const tabledata = props.data!.map((obj: Person) => {
+	const tabledata = tabData!.map((obj: Person) => {
 		return (
 			<tr>
 				<td>{obj.name}</td>

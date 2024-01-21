@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import {
 	Autocomplete,
 	Button,
 	CircularProgress,
-	FormControl,
 	FormHelperText,
-	InputLabel,
-	MenuItem,
-	Select,
 	TextField,
 } from "@mui/material";
 import { Person, addPerson } from "../features/personSlice";
-import { TableComponent } from "./TableComponent";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -219,10 +214,18 @@ export default function AddressFormComponent(props: {
 						</div>
 					</div>
 				</div>
-
-				<Button variant="contained" type="submit">
-					Submit
-				</Button>
+				<div
+					style={{
+						width: "100%",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<Button variant="contained" type="submit">
+						Submit
+					</Button>
+				</div>
 			</form>
 		</>
 	);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "datatables.net-dt/css/jquery.dataTables.css";
 import {
 	Button,
@@ -47,7 +47,7 @@ const schema = yup.object().shape({
 		.string()
 		.required("Mobile is a required field")
 		.matches(
-			/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+			/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
 			"Invalid Mobile number format"
 		),
 	govId: yup.string().when("govIdType", {
@@ -219,9 +219,18 @@ export function PersonComponent() {
 						</div>
 					</div>
 
-					<Button variant="contained" type="submit">
-						Next
-					</Button>
+					<div
+						style={{
+							width: "100%",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
+						<Button variant="contained" type="submit">
+							Next
+						</Button>
+					</div>
 				</form>
 			)}
 			{!!personalInfo && (
