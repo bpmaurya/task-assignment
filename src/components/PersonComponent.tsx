@@ -74,7 +74,8 @@ const schema = yup.object().shape({
 							context.originalValue && !context.originalValue.startsWith("1")
 						);
 					}
-				),
+				)
+				.matches(/^\d+$/, "only number allowed"),
 		otherwise: (schema) =>
 			schema
 				.min(10)
