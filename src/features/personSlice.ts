@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PersonalInfo } from "../components/PersonComponent";
+import { AddressDetails1 } from "../components/AddressFormComponent";
 
-export interface Person {
-	id: number;
-	name: string;
+export interface Person extends PersonalInfo, AddressDetails1 {
+	id: string;
 }
 
 interface PersonState {
@@ -45,11 +46,8 @@ export const PersonSlice = createSlice({
 	name: "person",
 	initialState,
 	reducers: {
-		addPerson: (state, action: PayloadAction<{ name: string }>) => {
-			state.persons.push({
-				id: state.persons.length,
-				name: action.payload.name,
-			});
+		addPerson: (state, action: PayloadAction<{ userData: Person }>) => {
+			state.persons.push(action.payload.userData);
 		},
 	},
 	extraReducers: (builder) => {

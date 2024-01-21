@@ -1,29 +1,60 @@
-import React from "react";
-import { useAppSelector } from "../store/hooks";
+import { Config } from "datatables.net-dt";
+import { useEffect, useRef } from "react";
+import "jquery/dist/jquery.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
+import { Person } from "../features/personSlice";
 
-export function TableComponent() {
-	const persons = useAppSelector((state) => state.person.persons);
+export function TableComponent({ ...props }: Config) {
+	// const tableRef = useRef<HTMLTableElement>(null);
+
+	useEffect(() => {
+		$(document).ready(function () {
+			$("#table_id").DataTable({
+				retrieve: true,
+				searching: true,
+				paging: false,
+			});
+		});
+	}, []);
+
+	const tabledata = props.data!.map((obj: Person) => {
+		return (
+			<tr>
+				<td>{obj.name}</td>
+				<td>{obj.age}</td>
+				<td>{obj.sex}</td>
+				<td>{obj.mobile}</td>
+				<td>{obj.govIdType}</td>
+				<td>{obj.govId}</td>
+				<td>{obj.address}</td>
+				<td>{obj.city}</td>
+				<td>{obj.country}</td>
+				<td>{obj.pincode}</td>
+				<td>{obj.state}</td>
+			</tr>
+		);
+	});
+
 	return (
-		<>
-			<div className="rounded-md shadow border m-2 p-2">
-				<p>This is List Components</p>
-				<table className="rounded-md">
-					<thead>
-						<tr className="bg-gradient-to-b from-sky-400 to-sky-600 text-white  ">
-							<th className="p-2 border rounded">ID</th>
-							<th className="p-2 border rounded">Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						{persons.map((person) => (
-							<tr className="even:bg-slate-50" key={person.id}>
-								<td className="p-2">{person.id}</td>
-								<td className="p-2">{person.name}</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
-		</>
+		<table id="table_id" style={{ width: "100%" }}>
+			<thead>
+				<tr>
+					<th> Name</th>
+					<th> Age</th>
+					<th> Sex</th>
+					<th> Mobile</th>
+					<th> Id Type</th>
+					<th> Id </th>
+					<th> Address </th>
+					<th> City </th>
+					<th> Country </th>
+					<th> Pincode </th>
+					<th> State </th>
+				</tr>
+			</thead>
+			<tbody>{tabledata}</tbody>
+		</table>
 	);
 }
